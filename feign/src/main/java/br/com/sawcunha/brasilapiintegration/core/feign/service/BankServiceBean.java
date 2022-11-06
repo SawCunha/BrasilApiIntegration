@@ -2,7 +2,7 @@ package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.feign.api.BankAPI;
 import br.com.sawcunha.brasilapiintegration.core.feign.configuration.FeingConfiguration;
-import br.com.sawcunha.brasilapiintegration.core.feign.configuration.decoder.BankDecoder;
+import br.com.sawcunha.brasilapiintegration.core.feign.configuration.decoder.BrasilAPIErrorDecoder;
 import br.com.sawcunha.brasilapiintegration.core.model.bank.Bank;
 import br.com.sawcunha.brasilapiintegration.core.specification.BankService;
 
@@ -16,7 +16,7 @@ public class BankServiceBean implements BankService {
 
     private static BankAPI instance(){
         if(Objects.isNull(bankAPI))
-            bankAPI = FeingConfiguration.getInstance(BankAPI.class, URI, BankDecoder.getInstance());
+            bankAPI = FeingConfiguration.getInstance(BankAPI.class, URI, BrasilAPIErrorDecoder.getInstance());
 
         return bankAPI;
     }

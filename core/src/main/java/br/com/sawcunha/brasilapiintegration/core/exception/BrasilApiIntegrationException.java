@@ -1,5 +1,6 @@
 package br.com.sawcunha.brasilapiintegration.core.exception;
 
+import br.com.sawcunha.brasilapiintegration.core.model.error.BrasilAPIError;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class BrasilApiIntegrationException extends RuntimeException {
-    private final Object dataAPI;
+    private final BrasilAPIError brasilAPIError;
     private final int statusAPI;
-    private final Class dataClass;
 }

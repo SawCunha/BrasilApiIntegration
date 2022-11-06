@@ -2,7 +2,7 @@ package br.com.sawcunha.brasilapiintegration.core.feign.configuration.decoder;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
 import br.com.sawcunha.brasilapiintegration.core.feign.configuration.GsonConfiguration;
-import br.com.sawcunha.brasilapiintegration.core.model.error.BankError;
+import br.com.sawcunha.brasilapiintegration.core.model.error.BrasilAPIError;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import kotlin.text.Charsets;
@@ -13,30 +13,27 @@ import java.io.Reader;
 import java.util.Objects;
 
 @Log4j2
-public class BankDecoder implements ErrorDecoder {
+public class BrasilAPIErrorDecoder implements ErrorDecoder {
 
-    private static BankDecoder bankDecoder;
+    private static BrasilAPIErrorDecoder brasilAPIErrorDecoder;
 
-    public static BankDecoder getInstance() {
-        if(Objects.isNull(bankDecoder)) bankDecoder = new BankDecoder();
-        return bankDecoder;
+    public static BrasilAPIErrorDecoder getInstance() {
+        if(Objects.isNull(brasilAPIErrorDecoder)) brasilAPIErrorDecoder = new BrasilAPIErrorDecoder();
+        return brasilAPIErrorDecoder;
     }
 
     private BrasilApiIntegrationException createBrasilApiIntegrationException(Response response){
 
         int status = response.status();
-        Object message;
+        BrasilAPIError message;
         Reader reader = null;
-        Class messageClass;
 
         try {
             reader = response.body().asReader(Charsets.UTF_8);
-            message = GsonConfiguration.gsonInstance().fromJson(reader, BankError.class);
-            messageClass = BankError.class;
+            message = GsonConfiguration.gsonInstance().fromJson(reader, BrasilAPIError.class);
         } catch (Exception e) {
             log.error("Error decode return API:", e);
-            message = e.getMessage();
-            messageClass = String.class;
+            message = null;
         }finally {
             try {
                 if (reader != null)
@@ -47,9 +44,8 @@ public class BankDecoder implements ErrorDecoder {
         }
 
         return BrasilApiIntegrationException.builder()
-                .dataAPI(message)
+                .brasilAPIError(message)
                 .statusAPI(status)
-                .dataClass(messageClass)
                 .build();
     }
 

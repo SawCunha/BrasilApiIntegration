@@ -1,4 +1,4 @@
-package br.com.sawcunha.brasilapiintegration.core.model.cnpj;
+package br.com.sawcunha.brasilapiintegration.core.model.rate;
 
 import br.com.sawcunha.brasilapiintegration.core.model.Base;
 import com.google.gson.annotations.SerializedName;
@@ -7,13 +7,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cnae extends Base {
-    @SerializedName("codigo")
-    private Long code;
-    @SerializedName("descricao")
-    private String description;
+public class Rate extends Base {
+
+    @SerializedName("nome")
+    private String name;
+    @SerializedName("valor")
+    private BigDecimal value;
+
 }

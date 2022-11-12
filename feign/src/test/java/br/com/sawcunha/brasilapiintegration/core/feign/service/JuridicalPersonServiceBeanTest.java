@@ -1,12 +1,16 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
-import br.com.sawcunha.brasilapiintegration.core.model.cnpj.Cnpj;
+import br.com.sawcunha.brasilapiintegration.core.model.cnpj.JuridicalPerson;
 import org.junit.jupiter.api.Test;
 
+import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CnpjServiceBeanTest {
+class JuridicalPersonServiceBeanTest {
+
+
+    private final JuridicalPersonServiceBean cnpjServiceBean = JuridicalPersonServiceBean.instance(URI_API);
 
     private static final String CNPJ_INVALID = "445855";
     private static final String CNPJ_NOT_FOUND = "66032678000164";
@@ -31,7 +35,6 @@ class CnpjServiceBeanTest {
 
     @Test
     public void shouldGetCNPJWithInvalidCNPJErrorUsingAPIV1(){
-        CnpjServiceBean cnpjServiceBean = new CnpjServiceBean();
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
@@ -48,7 +51,6 @@ class CnpjServiceBeanTest {
 
     @Test
     public void shouldGetCNPJWithNotFoundCNPJErrorUsingAPIV1(){
-        CnpjServiceBean cnpjServiceBean = new CnpjServiceBean();
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
@@ -65,16 +67,15 @@ class CnpjServiceBeanTest {
 
     @Test
     public void shouldGetCNPJWithCNPJSuccessUsingAPIV1(){
-        CnpjServiceBean cnpjServiceBean = new CnpjServiceBean();
 
-        Cnpj cnpj = cnpjServiceBean.findCnpjByCnpj(CNPJ_VALID);
+        JuridicalPerson juridicalPerson = cnpjServiceBean.findCnpjByCnpj(CNPJ_VALID);
 
-        assertEquals(CNPJ_VALID, cnpj.getCnpj());
-        assertEquals(CNAE_FISCAL, cnpj.getCnae_fiscal());
-        assertEquals(PORTE, cnpj.getPorte());
-        assertEquals(CNAE_FISCAL_DESCRICAO, cnpj.getCnae_fiscal_descricao());
-        assertEquals(NOME_FANTASIA, cnpj.getNome_fantasia());
-        assertEquals(RAZAO_SOCIAL, cnpj.getRazao_social());
+        assertEquals(CNPJ_VALID, juridicalPerson.getTaxIdentifier());
+        assertEquals(CNAE_FISCAL, juridicalPerson.getCnaeFiscal());
+        assertEquals(PORTE, juridicalPerson.getPorte());
+        assertEquals(CNAE_FISCAL_DESCRICAO, juridicalPerson.getDescriptionCnaeFiscal());
+        assertEquals(NOME_FANTASIA, juridicalPerson.getFantasyName());
+        assertEquals(RAZAO_SOCIAL, juridicalPerson.getCorporateName());
 
     }
 }

@@ -1,4 +1,4 @@
-package br.com.sawcunha.brasilapiintegration.core.model.cnpj;
+package br.com.sawcunha.brasilapiintegration.core.model.fipe;
 
 import br.com.sawcunha.brasilapiintegration.core.model.Base;
 import com.google.gson.annotations.SerializedName;
@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cnae extends Base {
-    @SerializedName("codigo")
-    private Long code;
-    @SerializedName("descricao")
-    private String description;
+public class FipeTable extends Base {
+
+    @SerializedName("codigoFipe")
+    private Integer code;
+    @SerializedName("mes")
+    private String month;
+
 }
+

@@ -8,9 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CepServiceBeanTest {
+
+    private static CepServiceBean cepServiceBean = CepServiceBean.instance(URI_API);
 
     private static final String CEP_CORRECT = "36204634";
     private static final String CEP_INCORRECT = "5885478";
@@ -27,7 +30,6 @@ class CepServiceBeanTest {
 
     @Test
     public void shouldGetCEPWithSuccessUsingAPIV1(){
-        CepServiceBean cepServiceBean = new CepServiceBean();
 
         Cep cep = cepServiceBean.findCEPV1ByCEP(CEP_CORRECT);
 
@@ -41,7 +43,6 @@ class CepServiceBeanTest {
 
     @Test
     public void shouldGetCEPWithErrorUsingAPIV1(){
-        CepServiceBean cepServiceBean = new CepServiceBean();
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
@@ -54,7 +55,6 @@ class CepServiceBeanTest {
 
     @Test
     public void shouldGetCEPSuccessfullyWithAPIV2(){
-        CepServiceBean cepServiceBean = new CepServiceBean();
 
         Cep cep = cepServiceBean.findCEPV2ByCEP(CEP_CORRECT);
 
@@ -68,7 +68,6 @@ class CepServiceBeanTest {
 
     @Test
     public void shouldGetCEPWithErrorUsingAPIV2(){
-        CepServiceBean cepServiceBean = new CepServiceBean();
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,

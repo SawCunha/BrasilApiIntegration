@@ -1,8 +1,9 @@
 # BrasilAPI Integration
 
 Projeto para facilitar e auxiliar na integração com o Projeto [BrasilAPI]('https://github.com/BrasilAPI/BrasilAPI').
+
 Será criado o Projeto para atender diversas formas de integrar projetos com as APIs disponivel no [BrasilAPI]('https://github.com/BrasilAPI/BrasilAPI').
-O Projeto será inicialmente criado para ser utilizado somente com Java 17.
+
 
 ## Roadmap
 
@@ -10,11 +11,13 @@ O projeto seguira a ordem descrita para implementação de novos recursos
 
 - Integração com sistemas legados
 - Integração com Spring Boot
-- Suporte a Java 8, 11.
+- Suporte a Java 8, 11, 17 e posteriores.
 - Disponibilizar no [Maven Repository]('https://mvnrepository.com/')
 
 
-## Licença
+
+
+# Licença
 
 MIT License
 

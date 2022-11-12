@@ -7,9 +7,13 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Objects;
 
+import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankServiceBeanTest {
+
+
+    private final BankServiceBean bankServiceBean = BankServiceBean.instance(URI_API);
 
     private static final int CODE_INVALID = 33667852;
     private static final int CODE_C6 = 336;
@@ -22,7 +26,6 @@ class BankServiceBeanTest {
 
     @Test
     public void shouldGetAllBanksWithSuccessUsingAPIV1(){
-        BankServiceBean bankServiceBean = new BankServiceBean();
 
         List<Bank> banks = bankServiceBean.findAllBanksV1();
 
@@ -36,7 +39,6 @@ class BankServiceBeanTest {
 
     @Test
     public void shouldGetBankByCodeWithSuccessUsingAPIV1(){
-        BankServiceBean bankServiceBean = new BankServiceBean();
 
         Bank bank = bankServiceBean.findBanksV1ByCode(CODE_C6);
 
@@ -48,7 +50,6 @@ class BankServiceBeanTest {
 
     @Test
     public void shouldGetBankByCodeWithErrorUsingAPIV1(){
-        BankServiceBean bankServiceBean = new BankServiceBean();
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,

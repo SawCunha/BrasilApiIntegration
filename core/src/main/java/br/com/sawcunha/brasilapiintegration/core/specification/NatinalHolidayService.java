@@ -7,5 +7,5 @@ import java.util.Set;
 
 public interface NatinalHolidayService {
 
-    Set<NationalHoliday> findAllNationalHolidayByYear(@NonNull final Integer year);
+    Set<NationalHoliday> findAllNationalHolidayByYearV1(@NonNull final Integer year);
 }

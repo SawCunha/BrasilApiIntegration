@@ -1,19 +1,16 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.feign.api.CepAPI;
-import br.com.sawcunha.brasilapiintegration.core.feign.configuration.FeingConfiguration;
-import br.com.sawcunha.brasilapiintegration.core.feign.configuration.decoder.BrasilAPIErrorDecoder;
 import br.com.sawcunha.brasilapiintegration.core.model.cep.Cep;
 import br.com.sawcunha.brasilapiintegration.core.specification.CepService;
+import br.com.sawcunha.brasilapiintegration.core.util.CepUtil;
 import lombok.NonNull;
 
 import java.util.Objects;
 
-public class CepServiceBean implements CepService {
+public class CepServiceBean extends ServiceBean<CepAPI> implements CepService {
 
     private static CepServiceBean cepServiceBean;
-
-    private final CepAPI cepAPI;
 
     public static CepServiceBean instance(@NonNull String uri){
         if(Objects.isNull(cepServiceBean))
@@ -23,16 +20,18 @@ public class CepServiceBean implements CepService {
     }
 
     private CepServiceBean(@NonNull String uri) {
-        this.cepAPI = FeingConfiguration.getInstance(CepAPI.class, uri, BrasilAPIErrorDecoder.getInstance());
+        super(uri, CepAPI.class);
     }
 
     @Override
-    public Cep findCEPV1ByCEP(final String cep) {
-        return cepAPI.findByCepV1(cep);
+    public Cep findCEPByCEPV1(final String cep) {
+        String cepValid = CepUtil.formatCEP(cep);
+        return brasilAPI.findByCepV1(cepValid);
     }
 
     @Override
-    public Cep findCEPV2ByCEP(final String cep) {
-        return cepAPI.findByCepV2(cep);
+    public Cep findCEPByCEPV2(final String cep) {
+        String cepValid = CepUtil.formatCEP(cep);
+        return brasilAPI.findByCepV2(cepValid);
     }
 }

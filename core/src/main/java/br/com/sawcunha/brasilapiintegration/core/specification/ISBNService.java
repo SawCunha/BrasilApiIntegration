@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 public interface ISBNService {
 
-    ISBN findByCode(@NonNull final String code, ProvidersISBN... providersISBN);
+    ISBN findISBNByCodeV1(@NonNull final String code, ProvidersISBN... providersISBN);
 
 
 }

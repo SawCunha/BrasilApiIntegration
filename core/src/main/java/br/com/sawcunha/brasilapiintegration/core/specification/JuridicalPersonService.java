@@ -4,6 +4,6 @@ import br.com.sawcunha.brasilapiintegration.core.model.cnpj.JuridicalPerson;
 
 public interface JuridicalPersonService {
 
-    JuridicalPerson findCnpjByCnpj(final String cnpj);
+    JuridicalPerson findCnpjByCnpjV1(final String cnpj);
 
 }

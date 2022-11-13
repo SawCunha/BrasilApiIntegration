@@ -7,8 +7,8 @@ import java.util.Set;
 
 public interface NCMService {
 
-    Set<NCM> findAllNCM();
-    Set<NCM> findAllNCMByCodeOrDescription(@NonNull final String value);
-    NCM findNCMByCode(@NonNull final String code);
+    Set<NCM> findAllNCMV1();
+    Set<NCM> findAllNCMByCodeOrDescriptionV1(@NonNull final String value);
+    NCM findNCMByCodeV1(@NonNull final String code);
 
 }

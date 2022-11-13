@@ -13,9 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CepServiceBeanTest {
 
-    private static CepServiceBean cepServiceBean = CepServiceBean.instance(URI_API);
+    private static final CepServiceBean cepServiceBean = CepServiceBean.instance(URI_API);
 
     private static final String CEP_CORRECT = "36204634";
+    private static final String CEP_INVALID = "99904634";
     private static final String CEP_INCORRECT = "5885478";
     private static final String CITY = "Barbacena";
     private static final String NEIGHBORHOOD = "Santo Antônio";
@@ -26,12 +27,13 @@ class CepServiceBeanTest {
     private static final String MESSAGE_ERROR = "Todos os serviços de CEP retornaram erro.";
     private static final String TYPE_ERROR = "service_error";
     private static final String NAME_ERROR = "CepPromiseError";
+    private static final String ERROR_MESSAGE = "Invalid CEP";
 
 
     @Test
-    public void shouldGetCEPWithSuccessUsingAPIV1(){
+    void shouldGetCEPWithSuccessUsingAPIV1(){
 
-        Cep cep = cepServiceBean.findCEPV1ByCEP(CEP_CORRECT);
+        Cep cep = cepServiceBean.findCEPByCEPV1(CEP_CORRECT);
 
         assertEquals(CEP_CORRECT, cep.getCep());
         assertNull(cep.getLocation());
@@ -42,11 +44,11 @@ class CepServiceBeanTest {
     }
 
     @Test
-    public void shouldGetCEPWithErrorUsingAPIV1(){
+    void shouldGetCEPWithErrorUsingAPIV1(){
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
-                () -> cepServiceBean.findCEPV1ByCEP(CEP_INCORRECT)
+                () -> cepServiceBean.findCEPByCEPV1(CEP_INVALID)
         );
 
         validateException(brasilApiIntegrationException);
@@ -54,9 +56,9 @@ class CepServiceBeanTest {
     }
 
     @Test
-    public void shouldGetCEPSuccessfullyWithAPIV2(){
+    void shouldGetCEPSuccessfullyWithAPIV2(){
 
-        Cep cep = cepServiceBean.findCEPV2ByCEP(CEP_CORRECT);
+        Cep cep = cepServiceBean.findCEPByCEPV2(CEP_CORRECT);
 
         assertEquals(CEP_CORRECT, cep.getCep());
         assertNotNull(cep.getLocation());
@@ -67,15 +69,27 @@ class CepServiceBeanTest {
     }
 
     @Test
-    public void shouldGetCEPWithErrorUsingAPIV2(){
+    void shouldGetCEPWithErrorUsingAPIV2(){
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
-                () -> cepServiceBean.findCEPV2ByCEP(CEP_INCORRECT)
+                () -> cepServiceBean.findCEPByCEPV2(CEP_INVALID)
         );
 
         validateException(brasilApiIntegrationException);
 
+    }
+
+    @Test
+    void shouldReturnInvalidCEPError(){
+
+        BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
+                BrasilApiIntegrationException.class,
+                () -> cepServiceBean.findCEPByCEPV2(CEP_INCORRECT)
+        );
+
+        assertNotNull(brasilApiIntegrationException.getMessage());
+        assertEquals(ERROR_MESSAGE, brasilApiIntegrationException.getMessage());
     }
 
     private void validateException(BrasilApiIntegrationException brasilApiIntegrationException){

@@ -43,10 +43,7 @@ public class BrasilAPIErrorDecoder implements ErrorDecoder {
             }
         }
 
-        return BrasilApiIntegrationException.builder()
-                .brasilAPIError(message)
-                .statusAPI(status)
-                .build();
+        return new BrasilApiIntegrationException(message, status);
     }
 
     @Override

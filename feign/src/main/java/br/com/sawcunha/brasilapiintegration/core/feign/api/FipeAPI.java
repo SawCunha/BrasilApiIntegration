@@ -1,5 +1,6 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.api;
 
+import br.com.sawcunha.brasilapiintegration.core.constant.BrasilAPI;
 import br.com.sawcunha.brasilapiintegration.core.model.fipe.Fipe;
 import br.com.sawcunha.brasilapiintegration.core.model.fipe.FipeTable;
 import feign.Param;
@@ -11,12 +12,12 @@ import java.util.Set;
 
 public interface FipeAPI {
 
-    @RequestLine("GET /fipe/marcas/v1/{vehicleType}")
-    Set<Fipe> findAllFipeByVehickeTypeV1(@Param("vehicleType") final String vehicleType, @QueryMap final Map<String, String> queries);
+    @RequestLine(BrasilAPI.FIND_ALL_FIPE_BY_VEHICLE_TYPE_V1_FEING)
+    Set<Fipe> findAllFipeByVehicleTypeV1(@Param("vehicleType") final String vehicleType, @QueryMap final Map<String, String> queries);
 
-    @RequestLine("GET /fipe/preco/v1/{vehicleType}")
-    Set<Fipe> findAllFipePriceByVehickeTypeV1(@Param("vehicleType") final String vehicleType, @QueryMap final Map<String, String> queries);
+    @RequestLine(BrasilAPI.FIND_ALL_FIPE_PRICE_BY_VEHICLE_CODE_V1_FEING)
+    Set<Fipe> findAllFipePriceByVehicleCodeV1(@Param("vehicleCode") final String vehicleCode, @QueryMap final Map<String, String> queries);
 
-    @RequestLine("GET /fipe/tabelas/v1")
+    @RequestLine(BrasilAPI.FIND_ALL_FIPE_TABLE_V1_FEING)
     Set<FipeTable> findAllFipeTableV1();
 }

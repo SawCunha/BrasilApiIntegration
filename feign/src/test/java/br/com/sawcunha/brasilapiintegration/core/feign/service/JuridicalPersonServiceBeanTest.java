@@ -32,20 +32,19 @@ class JuridicalPersonServiceBeanTest {
     private static final String CNAE_FISCAL_DESCRICAO = "Comércio varejista de artigos do vestuário e acessórios";
     private static final String NOME_FANTASIA = "VEST CHIC MODAS";
     private static final String RAZAO_SOCIAL = "IRENE MACHADO DA ROCHA DE SOUZA";
+    private static final String ERROR_MESSAGE = "Invalid CNPJ";
 
     @Test
-    public void shouldGetCNPJWithInvalidCNPJErrorUsingAPIV1(){
+    public void shouldGetCNPJWithInvalidCNPJError(){
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
-                () -> cnpjServiceBean.findCnpjByCnpj(CNPJ_INVALID)
+                () -> cnpjServiceBean.findCnpjByCnpjV1(CNPJ_INVALID)
         );
 
-        assertEquals(STATUS_BAD_REQUEST, brasilApiIntegrationException.getStatusAPI());
-        assertEquals(MESSAGE_ERROR_BAD_REQUEST, brasilApiIntegrationException.getBrasilAPIError().getMessage());
-        assertEquals(TYPE_ERROR_BAD_REQUEST, brasilApiIntegrationException.getBrasilAPIError().getType());
-        assertEquals(NAME_ERROR_BAD_REQUEST, brasilApiIntegrationException.getBrasilAPIError().getName());
-        assertNull(brasilApiIntegrationException.getBrasilAPIError().getErrors());
+
+        assertNotNull(brasilApiIntegrationException.getMessage());
+        assertEquals(ERROR_MESSAGE, brasilApiIntegrationException.getMessage());
 
     }
 
@@ -54,7 +53,7 @@ class JuridicalPersonServiceBeanTest {
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
-                () -> cnpjServiceBean.findCnpjByCnpj(CNPJ_NOT_FOUND)
+                () -> cnpjServiceBean.findCnpjByCnpjV1(CNPJ_NOT_FOUND)
         );
 
         assertEquals(STATUS_NOT_FOUND, brasilApiIntegrationException.getStatusAPI());
@@ -68,7 +67,7 @@ class JuridicalPersonServiceBeanTest {
     @Test
     public void shouldGetCNPJWithCNPJSuccessUsingAPIV1(){
 
-        JuridicalPerson juridicalPerson = cnpjServiceBean.findCnpjByCnpj(CNPJ_VALID);
+        JuridicalPerson juridicalPerson = cnpjServiceBean.findCnpjByCnpjV1(CNPJ_VALID);
 
         assertEquals(CNPJ_VALID, juridicalPerson.getTaxIdentifier());
         assertEquals(CNAE_FISCAL, juridicalPerson.getCnaeFiscal());

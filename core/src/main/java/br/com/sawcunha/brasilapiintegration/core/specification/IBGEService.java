@@ -8,8 +8,8 @@ import java.util.Set;
 
 public interface IBGEService {
 
-    Set<IBGE> findAllMunicipalitiesByAcronymUF(@NonNull final String acronymUF, final ProvidersIBGE... providersIBGE);
-    Set<IBGE> findAllIBGE();
-    IBGE findAllIBGEByAcronymUFOrCode(@NonNull final String value);
+    Set<IBGE> findAllMunicipalitiesByAcronymUFV1(@NonNull final String acronymUF, final ProvidersIBGE... providersIBGE);
+    Set<IBGE> findAllIBGEV1();
+    IBGE findAllIBGEByAcronymUFOrCodeV1(@NonNull final String code);
 
 }

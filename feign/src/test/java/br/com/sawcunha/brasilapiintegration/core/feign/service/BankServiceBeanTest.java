@@ -40,7 +40,7 @@ class BankServiceBeanTest {
     @Test
     public void shouldGetBankByCodeWithSuccessUsingAPIV1(){
 
-        Bank bank = bankServiceBean.findBanksV1ByCode(CODE_C6);
+        Bank bank = bankServiceBean.findBankByCodeV1(CODE_C6);
 
         assertEquals(CODE_C6, bank.getCode());
         assertEquals(ISPB_C6, bank.getIspb());
@@ -53,7 +53,7 @@ class BankServiceBeanTest {
 
         BrasilApiIntegrationException brasilApiIntegrationException = assertThrows(
                 BrasilApiIntegrationException.class,
-                () -> bankServiceBean.findBanksV1ByCode(CODE_INVALID)
+                () -> bankServiceBean.findBankByCodeV1(CODE_INVALID)
         );
 
         assertEquals(STATUS_NOT_FOUND, brasilApiIntegrationException.getStatusAPI());

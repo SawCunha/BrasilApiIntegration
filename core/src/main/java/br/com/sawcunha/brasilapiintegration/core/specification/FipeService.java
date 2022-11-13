@@ -9,9 +9,9 @@ import java.util.Set;
 
 public interface FipeService {
 
-    Set<Fipe> findAllFipeByVehicleType(@NonNull final VehicleType vehicleType, final String referenceTableFipe);
-    Set<Fipe> findAllFipePriceByVehicleType(@NonNull final String codeFipe, final String referenceTableFipe);
-    Set<FipeTable> findAllFipeTable();
+    Set<Fipe> findAllFipeByVehicleTypeV1(@NonNull final VehicleType vehicleType, final String referenceTableFipe);
+    Set<Fipe> findAllFipePriceByVehicleCodeV1(@NonNull final String vehicleCode, final String referenceTableFipe);
+    Set<FipeTable> findAllFipeTableV1();
 
 
 }

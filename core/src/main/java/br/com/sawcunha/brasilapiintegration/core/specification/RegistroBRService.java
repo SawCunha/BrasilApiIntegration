@@ -5,6 +5,6 @@ import lombok.NonNull;
 
 public interface RegistroBRService {
 
-    Registro findRegistroByDomain(@NonNull final String domain);
+    Registro findRegistroByDomainV1(@NonNull final String domain);
 
 }

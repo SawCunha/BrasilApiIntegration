@@ -7,6 +7,6 @@ import java.util.List;
 public interface BankService {
 
     List<Bank> findAllBanksV1();
-    Bank findBanksV1ByCode(final Integer code);
+    Bank findBankByCodeV1(final Integer code);
 
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface RateService {
 
-    Set<Rate> findAllRates();
-    Rate findRateByAcronym(@NonNull final String acronym);
+    Set<Rate> findAllRatesV1();
+    Rate findRateByAcronymV1(@NonNull final String acronym);
 
 }

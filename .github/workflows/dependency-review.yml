@@ -1,4 +1,4 @@
-name: 'Dependency Review'
+name: Dependency Review - BrasilAPI Integration
 on: [pull_request]
 
 permissions:

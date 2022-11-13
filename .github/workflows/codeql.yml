@@ -1,4 +1,4 @@
-name: "CodeQL"
+name: CodeQL - BrasilAPI Integration
 
 on:
   pull_request:

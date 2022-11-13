@@ -1,0 +1,16 @@
+name: Create Tag - BrasilAPI Integration
+on:
+  push:
+    branches: [ 'develop' ]
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set Version Project
+        run: echo "VERSION_PROJECT=$(echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout))" >> $GITHUB_ENV
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: echo $VERSION_PROJECT_BUILD-$GITHUB_RUN_NUMBER
+          message: "Create Tag"

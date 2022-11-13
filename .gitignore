@@ -49,4 +49,4 @@ atlassian-ide-plugin.xml
 # Editor-based Rest Client
 .idea/httpRequests
 
-target/**/*
+*/target/**/*

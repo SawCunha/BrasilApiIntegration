@@ -1,4 +1,4 @@
-package br.com.sawcunha.brasilapiintegration.core.model.error;
+package br.com.sawcunha.brasilapiintegration.core.model.isbn;
 
 import br.com.sawcunha.brasilapiintegration.core.model.Base;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankError extends Base {
+public class Dimension extends Base {
 
-    private String message;
-    private String type;
+    private Double width;
+    private Double height;
+    private String unit;
 
 }

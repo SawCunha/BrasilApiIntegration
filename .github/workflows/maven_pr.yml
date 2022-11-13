@@ -1,0 +1,23 @@
+name: CI - BrasilAPI Integration
+
+on:
+  pull_request:
+    branches: [ 'main', 'develop' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Test
+      run: mvn clean test
+
+    - name: Build
+      run: mvn clean install -DskipTests -Ddependency-check.skip=true -Dfindbugs.skip=true -Dfindbugs.skip=true

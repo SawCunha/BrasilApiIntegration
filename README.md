@@ -1,18 +1,34 @@
 # BrasilAPI Integration
 
-Projeto para facilitar e auxiliar na integração com o Projeto [BrasilAPI]('https://github.com/BrasilAPI/BrasilAPI').
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml)
+[![CI - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml)
+[![Dependency Review - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/dependency-review.yml)
 
-Será criado o Projeto para atender diversas formas de integrar projetos com as APIs disponivel no [BrasilAPI]('https://github.com/BrasilAPI/BrasilAPI').
+Projeto para facilitar e auxiliar na integração com as APIs disponibilizada no Projeto [BrasilAPI](https://github.com/BrasilAPI/BrasilAPI).
 
+## Tecnologias utilizadas
+- [Java](https://www.java.com/pt-BR/)
+- [Open Feign](https://github.com/OpenFeign/feign)
+- [Gson](https://github.com/google/gson)
 
 ## Roadmap
 
 O projeto seguira a ordem descrita para implementação de novos recursos
 
-- Integração com sistemas legados
-- Integração com Spring Boot
-- Suporte a Java 8, 11, 17 e posteriores.
-- Disponibilizar no [Maven Repository]('https://mvnrepository.com/')
+- [ ] Integração utilizando [Open Feign](https://github.com/OpenFeign/feign)
+- [ ] Integração com [Spring Boot](https://spring.io/projects/spring-boot)
+- [ ] Disponibilizar no [Maven Repository](https://mvnrepository.com/)
+- [ ] Suporte a Java 11, 17 e posteriores.
+
+## Autores
+
+- [@SawCunha](https://github.com/SawCunha)
+
+## Contribuintes
+
+<a href="https://github.com/SawCunha/BrasilApiIntegration/graphs/contributors"><img src="https://contrib.rocks/image?repo=SawCunha/BrasilApiIntegration" /></a>
+
 
 
 

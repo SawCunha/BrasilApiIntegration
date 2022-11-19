@@ -24,16 +24,20 @@ import br.com.sawcunha.brasilapiintegration.core.specification.NatinalHolidaySer
 import br.com.sawcunha.brasilapiintegration.core.specification.RateService;
 import br.com.sawcunha.brasilapiintegration.core.specification.RegistroBRService;
 import feign.Client;
+import feign.Logger.Level;
+import feign.Request.Options;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.log4j.Log4j;
+import org.apache.logging.log4j.core.util.Assert;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
-@Log4j2
+@Log4j
 public class BrasilAPIIntegration {
     private static BrasilAPIIntegrationConfiguration brasilAPIIntegrationConfiguration;
     private static BankService bankService;
@@ -81,46 +85,68 @@ public class BrasilAPIIntegration {
     }
 
     public BankService getBankService() {
+        log.info("#Get - BankService");
+        Assert.requireNonEmpty(bankService, "BankService not enable.");
         return bankService;
     }
 
     public CepService getCepService() {
+        log.info("#Get - BankService");
+        Assert.requireNonEmpty(bankService, "BankService not enable.");
         return cepService;
     }
 
     public DirectDialDistanceService getDirectDialDistanceService() {
+        log.info("#Get - DirectDialDistanceService");
+        Assert.requireNonEmpty(directDialDistanceService, "DirectDialDistanceService not enable.");
         return directDialDistanceService;
     }
 
     public FipeService getFipeService() {
+        log.info("#Get - FipeService");
+        Assert.requireNonEmpty(fipeService, "FipeService not enable.");
         return fipeService;
     }
 
     public IBGEService getIbgeService() {
+        log.info("#Get - IbgeService");
+        Assert.requireNonEmpty(ibgeService, "IbgeService not enable.");
         return ibgeService;
     }
 
     public ISBNService getIsbnService() {
+        log.info("#Get - IsbnService");
+        Assert.requireNonEmpty(isbnService, "IsbnService not enable.");
         return isbnService;
     }
 
     public JuridicalPersonService getJuridicalPersonService() {
+        log.info("#Get - JuridicalPersonService");
+        Assert.requireNonEmpty(juridicalPersonService, "JuridicalPersonService not enable.");
         return juridicalPersonService;
     }
 
     public NatinalHolidayService getNatinalHolidayService() {
+        log.info("#Get - NatinalHolidayService");
+        Assert.requireNonEmpty(natinalHolidayService, "NatinalHolidayService not enable.");
         return natinalHolidayService;
     }
 
     public NCMService getNcmService() {
+        log.info("#Get - NcmService");
+        Assert.requireNonEmpty(ncmService, "NcmService not enable.");
         return ncmService;
     }
 
     public RateService getRateService() {
+        log.info("#Get - RateService");
+        Assert.requireNonEmpty(rateService, "RateService not enable.");
         return rateService;
     }
 
     public RegistroBRService getRegistroBRService() {
+        log.info("#Get - RegistroBRService");
+        Assert.requireNonEmpty(registroBRService, "RegistroBRService not enable.");
         return registroBRService;
     }
 
@@ -131,11 +157,14 @@ public class BrasilAPIIntegration {
         private Encoder encoder;
         private Decoder decoder;
         private ErrorDecoder errorDecoder;
+        private Level levelLogger;
         private BrasilAPIIntegrationConfiguration brasilAPIIntegrationConfiguration;
         private BrasilAPIServiceBuilder brasilAPIServiceBuilder;
+        private BrasilAPIOptionsRequestBuilder brasilAPIOptionsRequestBuilder;
 
         public BrasilAPIIntegrationBuilder(String uri) {
             this.uri = uri;
+            this.brasilAPIOptionsRequestBuilder = new BrasilAPIOptionsRequestBuilder(this);
         }
 
         public BrasilAPIIntegrationBuilder client(final Client client){
@@ -158,12 +187,25 @@ public class BrasilAPIIntegration {
             return this;
         }
 
+        public BrasilAPIIntegrationBuilder levelLogger(final Level levelLogger){
+            this.levelLogger = levelLogger;
+            return this;
+        }
+
         public BrasilAPIIntegrationBuilder configurationBuild(){
+            Options optionsRequest = new Options(
+                    brasilAPIOptionsRequestBuilder.getConnectTimeout(), brasilAPIOptionsRequestBuilder.getConnectTimeoutUnit(),
+                    brasilAPIOptionsRequestBuilder.getReadTimeout(), brasilAPIOptionsRequestBuilder.getReadTimeoutUnit(),
+                    brasilAPIOptionsRequestBuilder.isFollowRedirects()
+            );
+
             this.brasilAPIIntegrationConfiguration = BrasilAPIIntegrationConfiguration.builder()
                     .client(client)
                     .decoder(decoder)
                     .encoder(encoder)
                     .errorDecoder(errorDecoder)
+                    .levelLogger(Objects.nonNull(this.levelLogger) ? this.levelLogger : Level.HEADERS)
+                    .optionsRequest(optionsRequest)
                     .build();
             return this;
         }
@@ -176,6 +218,10 @@ public class BrasilAPIIntegration {
         public BrasilAPIServiceBuilder configureBrasilAPIService() {
             this.brasilAPIServiceBuilder = new BrasilAPIServiceBuilder(this);
             return brasilAPIServiceBuilder;
+        }
+
+        public BrasilAPIOptionsRequestBuilder configureOptionsRequest() {
+            return brasilAPIOptionsRequestBuilder;
         }
 
         public BrasilAPIIntegration build(){
@@ -272,6 +318,56 @@ public class BrasilAPIIntegration {
         }
 
         public BrasilAPIIntegrationBuilder buildServices(){
+            return brasilAPIIntegrationBuilder;
+        }
+
+    }
+
+    @Getter
+    public static class BrasilAPIOptionsRequestBuilder {
+
+        private final BrasilAPIIntegrationBuilder brasilAPIIntegrationBuilder;
+        private long connectTimeout;
+        private TimeUnit connectTimeoutUnit;
+        private long readTimeout;
+        private TimeUnit readTimeoutUnit;
+        private boolean followRedirects;
+
+        private BrasilAPIOptionsRequestBuilder(final BrasilAPIIntegrationBuilder brasilAPIIntegrationBuilder) {
+            this.brasilAPIIntegrationBuilder = brasilAPIIntegrationBuilder;
+            this.connectTimeout = 10L;
+            this.connectTimeoutUnit = TimeUnit.SECONDS;
+            this.readTimeout = 60L;
+            this.readTimeoutUnit = TimeUnit.SECONDS;
+            this.followRedirects = true;
+        }
+
+        public BrasilAPIOptionsRequestBuilder connectTimeout(final long connectTimeout) {
+            this.connectTimeout = connectTimeout;
+            return this;
+        }
+
+        public BrasilAPIOptionsRequestBuilder connectTimeoutUnit(@NonNull final TimeUnit connectTimeoutUnit) {
+            this.connectTimeoutUnit = connectTimeoutUnit;
+            return this;
+        }
+
+        public BrasilAPIOptionsRequestBuilder readTimeout(final long readTimeout) {
+            this.readTimeout = readTimeout;
+            return this;
+        }
+
+        public BrasilAPIOptionsRequestBuilder readTimeoutUnit(@NonNull final TimeUnit readTimeoutUnit) {
+            this.readTimeoutUnit = readTimeoutUnit;
+            return this;
+        }
+
+        public BrasilAPIOptionsRequestBuilder followRedirects(final boolean followRedirects) {
+            this.followRedirects = followRedirects;
+            return this;
+        }
+
+        public BrasilAPIIntegrationBuilder buildOptionsRequest(){
             return brasilAPIIntegrationBuilder;
         }
 

@@ -2,11 +2,13 @@ package br.com.sawcunha.brasilapiintegration.core.feign.api;
 
 import br.com.sawcunha.brasilapiintegration.core.constant.BrasilAPI;
 import br.com.sawcunha.brasilapiintegration.core.model.bank.Bank;
+import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
 import java.util.List;
 
+@Headers(BrasilAPI.USER_AGENT_FEIGN)
 public interface BankAPI {
 
     @RequestLine(BrasilAPI.ALL_BANK_V1_FEIGN)

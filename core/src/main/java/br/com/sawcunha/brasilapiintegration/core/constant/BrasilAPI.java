@@ -5,6 +5,8 @@ import lombok.Getter;
 @Getter
 public final class BrasilAPI {
 
+    public static final String USER_AGENT_FEIGN = "user-agent:  brasilapi-brasilapiintegration-java@1.0.0";
+
     //URLs Bank
     public static final String ALL_BANK_V1_FEIGN = "GET /banks/v1";
     public static final String ALL_BANK_V1_URL = "/banks/v1";

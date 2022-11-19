@@ -2,6 +2,8 @@ package br.com.sawcunha.brasilapiintegration.core.feign.configuration;
 
 import br.com.sawcunha.brasilapiintegration.core.feign.specification.BrasilAPIFeign;
 import feign.Client;
+import feign.Logger.Level;
+import feign.Request.Options;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
@@ -14,6 +16,8 @@ public class BrasilAPIIntegrationConfiguration implements BrasilAPIFeign {
     private static EncoderConfiguration encoderConfiguration;
     private static DecoderConfiguration decoderConfiguration;
     private static ErrorDecoderConfiguration errorDecoderConfiguration;
+    private static Level levelLogger;
+    private static Options optionsRequest;
 
     public BrasilAPIIntegrationConfiguration() {
         BrasilAPIIntegrationConfiguration.feignConfiguration = new FeignConfiguration();
@@ -21,19 +25,25 @@ public class BrasilAPIIntegrationConfiguration implements BrasilAPIFeign {
         BrasilAPIIntegrationConfiguration.encoderConfiguration = new EncoderConfiguration();
         BrasilAPIIntegrationConfiguration.decoderConfiguration = new DecoderConfiguration();
         BrasilAPIIntegrationConfiguration.errorDecoderConfiguration = new ErrorDecoderConfiguration();
+        BrasilAPIIntegrationConfiguration.levelLogger = Level.BASIC;
+        BrasilAPIIntegrationConfiguration.optionsRequest = createOptionRequest();
     }
 
     public BrasilAPIIntegrationConfiguration(
         @NonNull final ClientConfiguration clientConfiguration,
         @NonNull final EncoderConfiguration encoderConfiguration,
         @NonNull final DecoderConfiguration decoderConfiguration,
-        @NonNull final ErrorDecoderConfiguration errorDecoderConfiguration
+        @NonNull final ErrorDecoderConfiguration errorDecoderConfiguration,
+        @NonNull final Level levelLogger,
+        @NonNull final Options optionsRequest
     ) {
         BrasilAPIIntegrationConfiguration.feignConfiguration = new FeignConfiguration();
         BrasilAPIIntegrationConfiguration.clientConfiguration = clientConfiguration;
         BrasilAPIIntegrationConfiguration.errorDecoderConfiguration = errorDecoderConfiguration;
         BrasilAPIIntegrationConfiguration.encoderConfiguration = encoderConfiguration;
         BrasilAPIIntegrationConfiguration.decoderConfiguration = decoderConfiguration;
+        BrasilAPIIntegrationConfiguration.levelLogger = levelLogger;
+        BrasilAPIIntegrationConfiguration.optionsRequest = optionsRequest;
     }
 
 
@@ -45,8 +55,14 @@ public class BrasilAPIIntegrationConfiguration implements BrasilAPIFeign {
                 clientConfiguration.client(),
                 encoderConfiguration.encoder(),
                 decoderConfiguration.decoder(),
-                errorDecoderConfiguration.errorDecoder()
+                errorDecoderConfiguration.errorDecoder(),
+                levelLogger,
+                optionsRequest
         );
+    }
+
+    private Options createOptionRequest() {
+        return new Options();
     }
 
     public static BrasilAPIIntegrationConfigurationBuilder builder() {
@@ -58,6 +74,8 @@ public class BrasilAPIIntegrationConfiguration implements BrasilAPIFeign {
         private EncoderConfiguration encoderConfiguration;
         private DecoderConfiguration decoderConfiguration;
         private ErrorDecoderConfiguration errorDecoderConfiguration;
+        private Level levelLogger;
+        private Options optionsRequest;
 
         public BrasilAPIIntegrationConfigurationBuilder client(@NonNull final Client client){
             this.clientConfiguration = new ClientConfiguration(client);
@@ -79,8 +97,25 @@ public class BrasilAPIIntegrationConfiguration implements BrasilAPIFeign {
             return this;
         }
 
+        public BrasilAPIIntegrationConfigurationBuilder levelLogger(@NonNull final Level levelLogger){
+            this.levelLogger = levelLogger;
+            return this;
+        }
+
+        public BrasilAPIIntegrationConfigurationBuilder optionsRequest(@NonNull final Options optionsRequest){
+            this.optionsRequest = optionsRequest;
+            return this;
+        }
+
         public BrasilAPIIntegrationConfiguration build() {
-            return new BrasilAPIIntegrationConfiguration(clientConfiguration, encoderConfiguration, decoderConfiguration, errorDecoderConfiguration);
+            return new BrasilAPIIntegrationConfiguration(
+                    clientConfiguration,
+                    encoderConfiguration,
+                    decoderConfiguration,
+                    errorDecoderConfiguration,
+                    levelLogger,
+                    optionsRequest
+            );
         }
 
         public BrasilAPIIntegrationConfiguration buildDefault() {

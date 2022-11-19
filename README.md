@@ -13,13 +13,13 @@ Projeto para facilitar e auxiliar na integração com as APIs disponibilizada no
 - [Gson](https://github.com/google/gson)
 
 ## APIs implementadas do Brasil API
-Atualmente o projeto está cobrindo todas as APIs disponiveis para utilização.
+Atualmente o projeto implementando todas as APIs disponiveis para utilização.
 
 [Documentação das APIs](https://brasilapi.com.br/docs)
 
 ## Como utilizar
 
-Para criar uma instancia com configuração default criar da seguinte forma:
+Para criar uma instância com configuração default criar da seguinte forma:
 
 Onde a URI_API seria a URL: https://brasilapi.com.br/api
 
@@ -27,23 +27,39 @@ Para ativar cada Endpoint e necessário informar o *enableBankService* de cada s
 
 ```java
 BrasilAPIIntegration brasilAPIIntegration = BrasilAPIIntegration.builder(URI_API)
-    .configurationDefaultBuild()
-    .configureBrasilAPIService()
-        .enableBankService()
-        .enableCepService()
-        .enableDirectDialDistanceService()
-        .enableFipeService()
-        .enableIBGEService()
-        .enableISBNService()
-        .enableJuridicalPersonService()
-        .enableNatinalHolidayService()
-        .enableNCMService()
-        .enableRateService()
-        .enableRegistroBRService()
+        .configurationDefaultBuild()
+        .configureBrasilAPIService()
+            .enableBankService()
+            .enableCepService()
+            .enableDirectDialDistanceService()
+            .enableFipeService()
+            .enableIBGEService()
+            .enableISBNService()
+            .enableJuridicalPersonService()
+            .enableNatinalHolidayService()
+            .enableNCMService()
+            .enableRateService()
+            .enableRegistroBRService()
         .buildServices()
-    .build();
+        .levelLogger(Level.FULL)
+        .configureOptionsRequest()
+            .connectTimeout(1L)
+            .connectTimeoutUnit(TimeUnit.MINUTES)
+            .readTimeout(30L)
+            .readTimeoutUnit(TimeUnit.SECONDS)
+            .followRedirects(true)
+        .buildOptionsRequest()
+        .build();
 ```
 
+Caso não seja configurado *OptionsRequest* ele será criado com configuração default.
+```java
+this.connectTimeout = 10L;
+this.connectTimeoutUnit = TimeUnit.SECONDS;
+this.readTimeout = 60L;
+this.readTimeoutUnit = TimeUnit.SECONDS;
+this.followRedirects = true;
+```
 
 ## Roadmap
 

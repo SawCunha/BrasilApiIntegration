@@ -2,6 +2,7 @@ package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.enums.ProvidersIBGE;
 import br.com.sawcunha.brasilapiintegration.core.feign.api.IBGEAPI;
+import br.com.sawcunha.brasilapiintegration.core.feign.specification.BrasilAPIFeign;
 import br.com.sawcunha.brasilapiintegration.core.model.ibge.IBGE;
 import br.com.sawcunha.brasilapiintegration.core.specification.IBGEService;
 import lombok.NonNull;
@@ -14,19 +15,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class IBGEServiceBean extends ServiceBean<IBGEAPI> implements IBGEService {
-
-    private static IBGEServiceBean ibgeServiceBean;
     private static final String PROVIDERS_QUERY = "providers";
 
-    public static IBGEServiceBean instance(@NonNull String uri){
-        if(Objects.isNull(ibgeServiceBean))
-            ibgeServiceBean = new IBGEServiceBean(uri);
-
-        return ibgeServiceBean;
-    }
-
-    public IBGEServiceBean(@NonNull String uri) {
-        super(uri, IBGEAPI.class);
+    public IBGEServiceBean(@NonNull BrasilAPIFeign brasilAPIFeign, @NonNull String uri) {
+        super(brasilAPIFeign, uri, IBGEAPI.class);
     }
 
     @Override

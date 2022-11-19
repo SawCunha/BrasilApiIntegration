@@ -1,16 +1,17 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.cnpj.JuridicalPerson;
+import br.com.sawcunha.brasilapiintegration.core.specification.JuridicalPersonService;
 import org.junit.jupiter.api.Test;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JuridicalPersonServiceBeanTest {
 
 
-    private final JuridicalPersonServiceBean cnpjServiceBean = JuridicalPersonServiceBean.instance(URI_API);
+    private final JuridicalPersonService cnpjServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getJuridicalPersonService();
 
     private static final String CNPJ_INVALID = "445855";
     private static final String CNPJ_NOT_FOUND = "66032678000164";

@@ -2,18 +2,19 @@ package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.enums.VehicleType;
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.fipe.Fipe;
 import br.com.sawcunha.brasilapiintegration.core.model.fipe.FipeTable;
+import br.com.sawcunha.brasilapiintegration.core.specification.FipeService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FipeServiceBeanTest {
 
-    private static final FipeServiceBean fipeServiceBean = FipeServiceBean.instance(URI_API);
+    private static final FipeService fipeServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getFipeService();
 
     private static final String VEHICLE_CODE_FIPE_VALID = "0730270";
     private static final String VEHICLE_CODE_FIPE_INVALID = "073027000";

@@ -1,8 +1,8 @@
-package br.com.sawcunha.brasilapiintegration.core.feign.configuration.decoder;
+package br.com.sawcunha.brasilapiintegration.core.feign.decoder;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
-import br.com.sawcunha.brasilapiintegration.core.feign.configuration.GsonConfiguration;
 import br.com.sawcunha.brasilapiintegration.core.model.error.BrasilAPIError;
+import com.google.gson.Gson;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import kotlin.text.Charsets;
@@ -10,16 +10,14 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Objects;
 
 @Log4j2
 public class BrasilAPIErrorDecoder implements ErrorDecoder {
 
-    private static BrasilAPIErrorDecoder brasilAPIErrorDecoder;
+    private final Gson gson;
 
-    public static BrasilAPIErrorDecoder getInstance() {
-        if(Objects.isNull(brasilAPIErrorDecoder)) brasilAPIErrorDecoder = new BrasilAPIErrorDecoder();
-        return brasilAPIErrorDecoder;
+    public BrasilAPIErrorDecoder() {
+        this.gson = new Gson();
     }
 
     private BrasilApiIntegrationException createBrasilApiIntegrationException(Response response){
@@ -30,7 +28,7 @@ public class BrasilAPIErrorDecoder implements ErrorDecoder {
 
         try {
             reader = response.body().asReader(Charsets.UTF_8);
-            message = GsonConfiguration.gsonInstance().fromJson(reader, BrasilAPIError.class);
+            message = gson.fromJson(reader, BrasilAPIError.class);
         } catch (Exception e) {
             log.error("Error decode return API:", e);
             message = null;

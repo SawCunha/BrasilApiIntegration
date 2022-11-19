@@ -1,19 +1,20 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.rate.Rate;
+import br.com.sawcunha.brasilapiintegration.core.specification.RateService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RateServiceBeanTest {
 
-    private final RateServiceBean rateServiceBean = RateServiceBean.instance(URI_API);
+    private final RateService rateServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getRateService();
 
     private static final List<String> RATES = Arrays.asList("CDI", "Selic", "IPCA");
     private static final String RATE_INVALID = "RATE";

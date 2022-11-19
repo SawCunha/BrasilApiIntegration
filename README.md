@@ -1,20 +1,67 @@
 # BrasilAPI Integration
 
-Projeto para facilitar e auxiliar na integração com o Projeto [BrasilAPI]('https://github.com/BrasilAPI/BrasilAPI').
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml)
+[![CI - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml)
+[![Dependency Review - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/dependency-review.yml)
 
-Será criado o Projeto para atender diversas formas de integrar projetos com as APIs disponivel no [BrasilAPI]('https://github.com/BrasilAPI/BrasilAPI').
+Projeto para facilitar e auxiliar na integração com as APIs disponibilizada no Projeto [BrasilAPI](https://github.com/BrasilAPI/BrasilAPI).
+
+## Tecnologias utilizadas
+- [Java](https://www.java.com/pt-BR/)
+- [Open Feign](https://github.com/OpenFeign/feign)
+- [Gson](https://github.com/google/gson)
+
+## APIs implementadas do Brasil API
+Atualmente o projeto está cobrindo todas as APIs disponiveis para utilização.
+
+[Documentação das APIs](https://brasilapi.com.br/docs)
+
+## Como utilizar
+
+Para criar uma instancia com configuração default criar da seguinte forma:
+
+Onde a URI_API seria a URL: https://brasilapi.com.br/api
+
+Para ativar cada Endpoint e necessário informar o *enableBankService* de cada serviço que queira utilizar.
+
+```java
+BrasilAPIIntegration brasilAPIIntegration = BrasilAPIIntegration.builder(URI_API)
+    .configurationDefaultBuild()
+    .configureBrasilAPIService()
+        .enableBankService()
+        .enableCepService()
+        .enableDirectDialDistanceService()
+        .enableFipeService()
+        .enableIBGEService()
+        .enableISBNService()
+        .enableJuridicalPersonService()
+        .enableNatinalHolidayService()
+        .enableNCMService()
+        .enableRateService()
+        .enableRegistroBRService()
+        .buildServices()
+    .build();
+```
 
 
 ## Roadmap
 
 O projeto seguira a ordem descrita para implementação de novos recursos
 
-- Integração com sistemas legados
-- Integração com Spring Boot
-- Suporte a Java 8, 11, 17 e posteriores.
-- Disponibilizar no [Maven Repository]('https://mvnrepository.com/')
+- [ ] Integração utilizando [Open Feign](https://github.com/OpenFeign/feign)
+- [ ] Integração com [Spring Boot](https://spring.io/projects/spring-boot)
+- [ ] Disponibilizar no [Maven Repository](https://mvnrepository.com/)
+- [ ] Melhoria na cobertura de Testes unitarios e Integração
+- [ ] Suporte a Java 11, 17 e posteriores.
 
+## Autores
 
+- [@SawCunha](https://github.com/SawCunha)
+
+## Contribuintes
+
+<a href="https://github.com/SawCunha/BrasilApiIntegration/graphs/contributors"><img src="https://contrib.rocks/image?repo=SawCunha/BrasilApiIntegration" /></a>
 
 
 # Licença
@@ -40,4 +87,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-

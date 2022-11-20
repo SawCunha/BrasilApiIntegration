@@ -2,7 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml)
-[![CI - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/maven_pr.yml)
 [![Dependency Review - BrasilAPI Integration](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/SawCunha/BrasilApiIntegration/actions/workflows/dependency-review.yml)
 
 Projeto para facilitar e auxiliar na integração com as APIs disponibilizada no Projeto [BrasilAPI](https://github.com/BrasilAPI/BrasilAPI).
@@ -10,6 +9,7 @@ Projeto para facilitar e auxiliar na integração com as APIs disponibilizada no
 ## Tecnologias utilizadas
 - [Java](https://www.java.com/pt-BR/)
 - [Open Feign](https://github.com/OpenFeign/feign)
+- [Spring Boot](https://spring.io/projects/spring-boot)
 - [Gson](https://github.com/google/gson)
 
 ## APIs implementadas do Brasil API
@@ -17,7 +17,16 @@ Atualmente o projeto implementando todas as APIs disponiveis para utilização.
 
 [Documentação das APIs](https://brasilapi.com.br/docs)
 
-## Como utilizar
+## Como utilizar versão Feign
+
+importe no pom
+```java
+<dependency>
+    <groupId>br.com.sawcunha</groupId>
+    <artifactId>BrasilApiIntegration-feign</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
 
 Para criar uma instância com configuração default criar da seguinte forma:
 
@@ -61,12 +70,42 @@ this.readTimeoutUnit = TimeUnit.SECONDS;
 this.followRedirects = true;
 ```
 
+## Como utilizar versão Spring
+
+importe no pom
+```java
+<dependency>
+    <groupId>br.com.sawcunha</groupId>
+    <artifactId>BrasilApiIntegration-spring</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+Sera necessário a criação de uma classe de configuração para ativação do Feign sem erros:
+```java
+@Configuration
+@EnableFeignClients(basePackages={"br.com.sawcunha.brasilapiintegration.spring"})
+@ComponentScan(basePackages={"br.com.sawcunha.brasilapiintegration.spring"})
+public class BrasilAPIConfiguration {
+}
+```
+
+No properties da aplicação adicionar as seguintes configurações:
+```yml
+brasilapi:
+  url: https://brasilapi.com.br/api
+```
+
+Os properties do Feign pode ser configurado de acordo com seu gosto.
+
+Para sobrescrever a saida do log do: **BrasilApiIntegration-spring**, basta sobrescrever no projeto o arquivo: **log4j.xml**
+
 ## Roadmap
 
 O projeto seguira a ordem descrita para implementação de novos recursos
 
-- [ ] Integração utilizando [Open Feign](https://github.com/OpenFeign/feign)
-- [ ] Integração com [Spring Boot](https://spring.io/projects/spring-boot)
+- [X] Integração utilizando [Open Feign](https://github.com/OpenFeign/feign)
+- [X] Integração com [Spring Boot](https://spring.io/projects/spring-boot)
 - [ ] Disponibilizar no [Maven Repository](https://mvnrepository.com/)
 - [ ] Melhoria na cobertura de Testes unitarios e Integração
 - [ ] Suporte a Java 11, 17 e posteriores.

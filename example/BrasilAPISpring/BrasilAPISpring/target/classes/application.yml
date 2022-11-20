@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /brasilapispring/
+
+logging:
+  exception-conversion-word:
+  level:
+    root: INFO
+
+brasilapi:
+  url: https://brasilapi.com.br/api
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 15000
+        loggerLevel: FULL

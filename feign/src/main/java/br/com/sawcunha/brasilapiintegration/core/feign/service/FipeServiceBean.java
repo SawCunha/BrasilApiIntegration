@@ -2,6 +2,7 @@ package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.enums.VehicleType;
 import br.com.sawcunha.brasilapiintegration.core.feign.api.FipeAPI;
+import br.com.sawcunha.brasilapiintegration.core.feign.specification.BrasilAPIFeign;
 import br.com.sawcunha.brasilapiintegration.core.model.fipe.Fipe;
 import br.com.sawcunha.brasilapiintegration.core.model.fipe.FipeTable;
 import br.com.sawcunha.brasilapiintegration.core.specification.FipeService;
@@ -14,18 +15,10 @@ import java.util.Set;
 
 public class FipeServiceBean extends ServiceBean<FipeAPI> implements FipeService {
 
-    private static FipeServiceBean fipeServiceBean;
     private static final String REFERENCE_TABLE_QUERY = "tabela_referencia";
 
-    public static FipeServiceBean instance(@NonNull String uri){
-        if(Objects.isNull(fipeServiceBean))
-            fipeServiceBean = new FipeServiceBean(uri);
-
-        return fipeServiceBean;
-    }
-
-    public FipeServiceBean(@NonNull String uri) {
-        super(uri, FipeAPI.class);
+    public FipeServiceBean(@NonNull BrasilAPIFeign brasilAPIFeign, @NonNull String uri) {
+        super(brasilAPIFeign, uri, FipeAPI.class);
     }
 
     @Override

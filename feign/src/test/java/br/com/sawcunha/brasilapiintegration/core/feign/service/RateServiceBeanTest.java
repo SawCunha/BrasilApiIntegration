@@ -1,25 +1,33 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.rate.Rate;
+import br.com.sawcunha.brasilapiintegration.core.specification.RateService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RateServiceBeanTest {
 
-    private final RateServiceBean rateServiceBean = RateServiceBean.instance(URI_API);
+    private RateService rateServiceBean;
 
     private static final List<String> RATES = Arrays.asList("CDI", "Selic", "IPCA");
     private static final String RATE_INVALID = "RATE";
     private static final String MESSAGE_ERROR =  "Taxa ou Índice não encontrada.";
     private static final String TYPE_ERROR =  "not_found";
     private static final int STATUS_NOT_FOUND = 404;
+
+    @BeforeEach
+    public void setUp() {
+        org.apache.log4j.BasicConfigurator.configure();
+        rateServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getRateService();
+    }
 
     @Test
     public void shouldFindAllRateSuccess(){

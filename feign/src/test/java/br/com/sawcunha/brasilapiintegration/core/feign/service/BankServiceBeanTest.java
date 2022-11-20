@@ -1,19 +1,21 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.bank.Bank;
+import br.com.sawcunha.brasilapiintegration.core.specification.BankService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Objects;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankServiceBeanTest {
 
 
-    private final BankServiceBean bankServiceBean = BankServiceBean.instance(URI_API);
+    private BankService bankServiceBean;
 
     private static final int CODE_INVALID = 33667852;
     private static final int CODE_C6 = 336;
@@ -23,6 +25,12 @@ class BankServiceBeanTest {
     private static final String MESSAGE_ERROR =  "Código bancário não encontrado";
     private static final String TYPE_ERROR =  "BANK_CODE_NOT_FOUND";
     private static final int STATUS_NOT_FOUND = 404;
+
+    @BeforeEach
+    public void setUp() {
+        org.apache.log4j.BasicConfigurator.configure();
+        bankServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getBankService();
+    }
 
     @Test
     public void shouldGetAllBanksWithSuccessUsingAPIV1(){

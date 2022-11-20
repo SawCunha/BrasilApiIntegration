@@ -2,6 +2,7 @@ package br.com.sawcunha.brasilapiintegration.core.feign.api;
 
 import br.com.sawcunha.brasilapiintegration.core.constant.BrasilAPI;
 import br.com.sawcunha.brasilapiintegration.core.model.ibge.IBGE;
+import feign.Headers;
 import feign.Param;
 import feign.QueryMap;
 import feign.RequestLine;
@@ -9,6 +10,7 @@ import feign.RequestLine;
 import java.util.Map;
 import java.util.Set;
 
+@Headers(BrasilAPI.USER_AGENT_FEIGN)
 public interface IBGEAPI {
 
     @RequestLine(BrasilAPI.FIND_ALL_COUNTIES_BY_UF_V1_FEIGN)

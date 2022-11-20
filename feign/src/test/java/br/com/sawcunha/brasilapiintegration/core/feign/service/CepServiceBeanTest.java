@@ -1,19 +1,21 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.cep.Cep;
 import br.com.sawcunha.brasilapiintegration.core.model.error.BrasilAPIError;
 import br.com.sawcunha.brasilapiintegration.core.model.error.ServiceError;
+import br.com.sawcunha.brasilapiintegration.core.specification.CepService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CepServiceBeanTest {
 
-    private static final CepServiceBean cepServiceBean = CepServiceBean.instance(URI_API);
+    private static CepService cepServiceBean;
 
     private static final String CEP_CORRECT = "36204634";
     private static final String CEP_INVALID = "99904634";
@@ -29,6 +31,11 @@ class CepServiceBeanTest {
     private static final String NAME_ERROR = "CepPromiseError";
     private static final String ERROR_MESSAGE = "Invalid CEP";
 
+    @BeforeEach
+    public void setUp() {
+        org.apache.log4j.BasicConfigurator.configure();
+        cepServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getCepService();
+    }
 
     @Test
     void shouldGetCEPWithSuccessUsingAPIV1(){

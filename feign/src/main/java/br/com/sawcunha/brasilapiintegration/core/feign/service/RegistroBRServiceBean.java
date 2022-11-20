@@ -1,25 +1,15 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.feign.api.RegistroBRAPI;
+import br.com.sawcunha.brasilapiintegration.core.feign.specification.BrasilAPIFeign;
 import br.com.sawcunha.brasilapiintegration.core.model.registrobr.Registro;
 import br.com.sawcunha.brasilapiintegration.core.specification.RegistroBRService;
 import lombok.NonNull;
 
-import java.util.Objects;
-
 public class RegistroBRServiceBean extends ServiceBean<RegistroBRAPI> implements RegistroBRService {
 
-    private static RegistroBRServiceBean registroBRServiceBean;
-
-    public static RegistroBRServiceBean instance(@NonNull String uri){
-        if(Objects.isNull(registroBRServiceBean)){
-            registroBRServiceBean = new RegistroBRServiceBean(uri);
-        }
-        return registroBRServiceBean;
-    }
-
-    private RegistroBRServiceBean(@NonNull String uri) {
-        super(uri, RegistroBRAPI.class);
+    public RegistroBRServiceBean(@NonNull BrasilAPIFeign brasilAPIFeign, @NonNull String uri) {
+        super(brasilAPIFeign, uri, RegistroBRAPI.class);
     }
 
     @Override

@@ -1,26 +1,17 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.feign.api.BankAPI;
+import br.com.sawcunha.brasilapiintegration.core.feign.specification.BrasilAPIFeign;
 import br.com.sawcunha.brasilapiintegration.core.model.bank.Bank;
 import br.com.sawcunha.brasilapiintegration.core.specification.BankService;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Objects;
 
 public class BankServiceBean extends ServiceBean<BankAPI> implements BankService {
 
-    private static BankServiceBean bankServiceBean;
-
-    public static BankServiceBean instance(@NonNull String uri){
-        if(Objects.isNull(bankServiceBean))
-            bankServiceBean = new BankServiceBean(uri);
-
-        return bankServiceBean;
-    }
-
-    private BankServiceBean(@NonNull String uri) {
-        super(uri, BankAPI.class);
+    public BankServiceBean(@NonNull BrasilAPIFeign brasilAPIFeign,  @NonNull String uri) {
+        super(brasilAPIFeign, uri, BankAPI.class);
     }
 
     @Override

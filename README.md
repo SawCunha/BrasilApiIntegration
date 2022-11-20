@@ -12,6 +12,55 @@ Projeto para facilitar e auxiliar na integração com as APIs disponibilizada no
 - [Open Feign](https://github.com/OpenFeign/feign)
 - [Gson](https://github.com/google/gson)
 
+## APIs implementadas do Brasil API
+Atualmente o projeto implementando todas as APIs disponiveis para utilização.
+
+[Documentação das APIs](https://brasilapi.com.br/docs)
+
+## Como utilizar
+
+Para criar uma instância com configuração default criar da seguinte forma:
+
+Onde a URI_API seria a URL: https://brasilapi.com.br/api
+
+Para ativar cada Endpoint e necessário informar o *enableBankService* de cada serviço que queira utilizar.
+
+```java
+BrasilAPIIntegration brasilAPIIntegration = BrasilAPIIntegration.builder(URI_API)
+        .configurationDefaultBuild()
+        .configureBrasilAPIService()
+            .enableBankService()
+            .enableCepService()
+            .enableDirectDialDistanceService()
+            .enableFipeService()
+            .enableIBGEService()
+            .enableISBNService()
+            .enableJuridicalPersonService()
+            .enableNatinalHolidayService()
+            .enableNCMService()
+            .enableRateService()
+            .enableRegistroBRService()
+        .buildServices()
+        .levelLogger(Level.FULL)
+        .configureOptionsRequest()
+            .connectTimeout(1L)
+            .connectTimeoutUnit(TimeUnit.MINUTES)
+            .readTimeout(30L)
+            .readTimeoutUnit(TimeUnit.SECONDS)
+            .followRedirects(true)
+        .buildOptionsRequest()
+        .build();
+```
+
+Caso não seja configurado *OptionsRequest* ele será criado com configuração default.
+```java
+this.connectTimeout = 10L;
+this.connectTimeoutUnit = TimeUnit.SECONDS;
+this.readTimeout = 60L;
+this.readTimeoutUnit = TimeUnit.SECONDS;
+this.followRedirects = true;
+```
+
 ## Roadmap
 
 O projeto seguira a ordem descrita para implementação de novos recursos
@@ -19,6 +68,7 @@ O projeto seguira a ordem descrita para implementação de novos recursos
 - [ ] Integração utilizando [Open Feign](https://github.com/OpenFeign/feign)
 - [ ] Integração com [Spring Boot](https://spring.io/projects/spring-boot)
 - [ ] Disponibilizar no [Maven Repository](https://mvnrepository.com/)
+- [ ] Melhoria na cobertura de Testes unitarios e Integração
 - [ ] Suporte a Java 11, 17 e posteriores.
 
 ## Autores
@@ -28,9 +78,6 @@ O projeto seguira a ordem descrita para implementação de novos recursos
 ## Contribuintes
 
 <a href="https://github.com/SawCunha/BrasilApiIntegration/graphs/contributors"><img src="https://contrib.rocks/image?repo=SawCunha/BrasilApiIntegration" /></a>
-
-
-
 
 
 # Licença
@@ -56,4 +103,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-

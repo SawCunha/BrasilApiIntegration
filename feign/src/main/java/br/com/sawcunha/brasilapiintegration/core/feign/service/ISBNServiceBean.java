@@ -2,6 +2,7 @@ package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.enums.ProvidersISBN;
 import br.com.sawcunha.brasilapiintegration.core.feign.api.ISBNAPI;
+import br.com.sawcunha.brasilapiintegration.core.feign.specification.BrasilAPIFeign;
 import br.com.sawcunha.brasilapiintegration.core.model.isbn.ISBN;
 import br.com.sawcunha.brasilapiintegration.core.specification.ISBNService;
 import lombok.NonNull;
@@ -14,18 +15,10 @@ import java.util.stream.Collectors;
 
 public class ISBNServiceBean extends ServiceBean<ISBNAPI> implements ISBNService {
 
-    private static ISBNServiceBean isbnServiceBean;
     private static final String PROVIDERS_QUERY = "providers";
 
-    public static ISBNServiceBean instance(@NonNull String uri){
-        if(Objects.isNull(isbnServiceBean))
-            isbnServiceBean = new ISBNServiceBean(uri);
-
-        return isbnServiceBean;
-    }
-
-    public ISBNServiceBean(@NonNull String uri) {
-        super(uri, ISBNAPI.class);
+    public ISBNServiceBean(@NonNull BrasilAPIFeign brasilAPIFeign, @NonNull String uri) {
+        super(brasilAPIFeign, uri, ISBNAPI.class);
     }
 
     @Override

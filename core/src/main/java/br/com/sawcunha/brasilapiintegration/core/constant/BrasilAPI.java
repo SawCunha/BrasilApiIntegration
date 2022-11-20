@@ -5,6 +5,8 @@ import lombok.Getter;
 @Getter
 public final class BrasilAPI {
 
+    public static final String USER_AGENT_FEIGN = "user-agent:  brasilapi-brasilapiintegration-java@1.0.0";
+
     //URLs Bank
     public static final String ALL_BANK_V1_FEIGN = "GET /banks/v1";
     public static final String ALL_BANK_V1_URL = "/banks/v1";
@@ -26,11 +28,11 @@ public final class BrasilAPI {
     public static final String FIND_DIRECT_DIAL_DISTANCE_BY_CODE_V1_URL = "/ddd/v1/{code}";
 
     //URLs Fipe
-    public static final String FIND_ALL_FIPE_BY_VEHICLE_TYPE_V1_FEING = "GET /fipe/marcas/v1/{vehicleType}";
+    public static final String FIND_ALL_FIPE_BY_VEHICLE_TYPE_V1_FEIGN = "GET /fipe/marcas/v1/{vehicleType}";
     public static final String FIND_ALL_FIPE_BY_VEHICLE_TYPE_V1_URL = "/fipe/marcas/v1/{vehicleType}";
-    public static final String FIND_ALL_FIPE_PRICE_BY_VEHICLE_CODE_V1_FEING = "GET /fipe/preco/v1/{vehicleCode}";
+    public static final String FIND_ALL_FIPE_PRICE_BY_VEHICLE_CODE_V1_FEIGN = "GET /fipe/preco/v1/{vehicleCode}";
     public static final String FIND_ALL_FIPE_PRICE_BY_VEHICLE_CODE_V1_URL = "/fipe/preco/v1/{vehicleCode}";
-    public static final String FIND_ALL_FIPE_TABLE_V1_FEING = "GET /fipe/tabelas/v1";
+    public static final String FIND_ALL_FIPE_TABLE_V1_FEIGN = "GET /fipe/tabelas/v1";
     public static final String FIND_ALL_FIPE_TABLE_V1_URL = "/fipe/tabelas/v1";
 
     //URLs IBGE

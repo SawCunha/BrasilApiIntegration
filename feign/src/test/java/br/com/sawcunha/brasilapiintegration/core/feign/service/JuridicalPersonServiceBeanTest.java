@@ -1,16 +1,18 @@
 package br.com.sawcunha.brasilapiintegration.core.feign.service;
 
 import br.com.sawcunha.brasilapiintegration.core.exception.BrasilApiIntegrationException;
+import br.com.sawcunha.brasilapiintegration.core.feign.utils.BrasilAPIIntegrationUtil;
 import br.com.sawcunha.brasilapiintegration.core.model.cnpj.JuridicalPerson;
+import br.com.sawcunha.brasilapiintegration.core.specification.JuridicalPersonService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static br.com.sawcunha.brasilapiintegration.core.feign.utils.Util.URI_API;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JuridicalPersonServiceBeanTest {
 
 
-    private final JuridicalPersonServiceBean cnpjServiceBean = JuridicalPersonServiceBean.instance(URI_API);
+    private JuridicalPersonService cnpjServiceBean;
 
     private static final String CNPJ_INVALID = "445855";
     private static final String CNPJ_NOT_FOUND = "66032678000164";
@@ -33,6 +35,12 @@ class JuridicalPersonServiceBeanTest {
     private static final String NOME_FANTASIA = "VEST CHIC MODAS";
     private static final String RAZAO_SOCIAL = "IRENE MACHADO DA ROCHA DE SOUZA";
     private static final String ERROR_MESSAGE = "Invalid CNPJ";
+
+    @BeforeEach
+    public void setUp() {
+        org.apache.log4j.BasicConfigurator.configure();
+        cnpjServiceBean = BrasilAPIIntegrationUtil.createBrasilAPIIntegration().getJuridicalPersonService();
+    }
 
     @Test
     public void shouldGetCNPJWithInvalidCNPJError(){
